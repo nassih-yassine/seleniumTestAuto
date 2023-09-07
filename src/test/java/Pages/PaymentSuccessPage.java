@@ -1,0 +1,38 @@
+package Pages;
+
+import Utils.BaseTools;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+
+public class PaymentSuccessPage extends BaseTools {
+    @FindBy(xpath = "//h2")
+    WebElement pageTitle;
+    @FindBy(xpath = "//p[@class='text-justify']")
+    WebElement pageMessage;
+    WebDriver driver;
+
+    public PaymentSuccessPage(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public void checkCurrentPaymentSuccessPageTitle(){
+        //TODO: Find better way to handel page loading...
+        try{
+            Thread.sleep(3000);
+        } catch (Exception ignored){
+        }
+
+        waitForElementToBeVisible(driver, pageTitle);
+        System.out.println(pageTitle.getText());
+        Assert.assertEquals(pageTitle.getText(), "PAYMENT SUCCESS");
+    }
+
+    public void checkPageMessage(){
+        String expectedMessage = "Your payment was successful. You should receive a follow-up call from our sales team.";
+        Assert.assertEquals(pageMessage.getText(), expectedMessage);
+    }
+}

@@ -2,16 +2,18 @@ package Tests;
 
 import Pages.CheckoutPage;
 import Pages.MoisturizersPage;
+import Pages.PaymentSuccessPage;
 import Pages.WeatherShopperHomePage;
 import configuration.SetUpTearDown;
 import org.testng.annotations.Test;
 
 public class WeatherTest extends SetUpTearDown {
     @Test
-    public void test1() throws InterruptedException {
+    public void test1() {
         WeatherShopperHomePage weatherShopperHomePage = new WeatherShopperHomePage(driver);
         MoisturizersPage moisturizersPage = new MoisturizersPage(driver);
         CheckoutPage checkoutPage = new CheckoutPage(driver);
+        PaymentSuccessPage paymentSuccessPage = new PaymentSuccessPage(driver);
 
         // Je check si je me suis bien redirigé vers la page Current temperature
         weatherShopperHomePage.checkCurrentTemperaturePageTitle();
@@ -32,9 +34,19 @@ public class WeatherTest extends SetUpTearDown {
         // Je check si le produit ajouté correspond bien à mon produit (titre , prix , total)
         checkoutPage.checkIfProductIsAddedToCard(productAddedToCard);
         // Je clique sur le bouton Pay with card
-
-
-        Thread.sleep(2000);
+        checkoutPage.clickPayWithCardButton();
+        // Je check si la popup Stripe.com s’affiche
+        checkoutPage.checkIfStripePopUpExist();
+        // Je saisis les informations nécessaires pour compléter l’achat (email, card number , date , cvc, zip code)
+        checkoutPage.fillStripeForm();
+        // Je check le total affiché sur le pop-up
+        checkoutPage.checkTotalPriceInStripePopUp(Integer.parseInt(productAddedToCard[1]));
+        // Je clique sur le bouton pay iner
+        checkoutPage.clickPayWithCardButton();
+        // Je check si je me suis bien redirigé vers la page confirmation
+        paymentSuccessPage.checkCurrentPaymentSuccessPageTitle();
+        // Je check si le message Your payment was successful. You should receive a follow-up call from our sales team est bien affiché
+        paymentSuccessPage.checkPageMessage();
     }
 
 }
