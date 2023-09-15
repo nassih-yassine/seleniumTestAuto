@@ -20,14 +20,11 @@ public class PaymentSuccessPage extends BaseTools {
     }
 
     public void checkCurrentPaymentSuccessPageTitle(){
-        //TODO: Find better way to handel page loading...
         try{
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (Exception ignored){
         }
-
         waitForElementToBeVisible(driver, pageTitle);
-        System.out.println(pageTitle.getText());
         Assert.assertEquals(pageTitle.getText(), "PAYMENT SUCCESS");
     }
 

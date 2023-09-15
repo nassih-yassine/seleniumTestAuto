@@ -1,14 +1,11 @@
 package Tests;
 
-import Pages.CheckoutPage;
-import Pages.MoisturizersPage;
-import Pages.PaymentSuccessPage;
-import Pages.WeatherShopperHomePage;
-import configuration.SetUpTearDown;
+import Pages.*;
+import Configuration.SetUpTearDown;
 import org.testng.annotations.Test;
 
 public class WeatherTest extends SetUpTearDown {
-    @Test
+    @Test(priority = 0)
     public void test1() {
         WeatherShopperHomePage weatherShopperHomePage = new WeatherShopperHomePage(driver);
         MoisturizersPage moisturizersPage = new MoisturizersPage(driver);
@@ -49,4 +46,17 @@ public class WeatherTest extends SetUpTearDown {
         paymentSuccessPage.checkPageMessage();
     }
 
+    @Test(priority = 1, enabled = false)
+    public void test2() {
+        WeatherShopperHomePage weatherShopperHomePage = new WeatherShopperHomePage(driver);
+        SunscreensPage sunscreensPage = new SunscreensPage(driver);
+
+        // Je check si je me suis bien redirigé vers la page Current temperature
+        weatherShopperHomePage.checkCurrentTemperaturePageTitle();
+        // Je clique sur le bouton Buy sunscreens
+        weatherShopperHomePage.clickSunscreensButton();
+        //Je check si je suis redirigé vers la page Sunscreens
+        sunscreensPage.checkCurrentSunscreensPageTitle();
+        // Je check que chaque produit est affiché avec son titre et son prix
+    }
 }

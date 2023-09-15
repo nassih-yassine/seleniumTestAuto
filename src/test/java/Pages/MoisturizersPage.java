@@ -12,19 +12,14 @@ import java.util.List;
 
 public class MoisturizersPage extends BaseTools {
     WebDriver driver;
-
     @FindBy(xpath = "//h2")
     WebElement pageTitle;
-
     @FindBy(xpath = "//div[@class='text-center col-4']")
     List<WebElement> products;
-
     @FindBy(xpath = "//button[@class='thin-text nav-link']")
     WebElement cardButton;
-
     @FindBy(id = "cart")
     WebElement numberOfElementInCard;
-
     public MoisturizersPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -43,19 +38,12 @@ public class MoisturizersPage extends BaseTools {
                 break;
             }
         }
-
-        if (allProductsGotTitleAndPrice) {
-            System.out.println("All Products have a Title and a Price");
-        } else {
-            System.out.println("There is some products with Missing Titles or Prices");
-        }
-
         Assert.assertTrue(allProductsGotTitleAndPrice);
     }
 
     private boolean productHasPrice(WebElement element) {
         String price = this.getProductPrice(element);
-        return price.isBlank() || price.isEmpty() || price == null;
+        return price.isBlank() || price.isEmpty();
     }
 
     private String getProductPrice(WebElement element){
@@ -65,7 +53,7 @@ public class MoisturizersPage extends BaseTools {
 
     private boolean productHasTitle(WebElement element) {
         String title = this.getProductTitle(element);
-        return title.isBlank() || title.isEmpty() || title == null;
+        return title.isBlank() || title.isEmpty();
     }
 
     private String getProductTitle(WebElement element){
@@ -89,14 +77,7 @@ public class MoisturizersPage extends BaseTools {
     public void checkElementIfAddedToCard() {
         String cardText = numberOfElementInCard.getText();
         boolean addedToCard;
-        if (!cardText.equalsIgnoreCase("Empty")) {
-            System.out.println("Element Added To Card Successfully");
-            addedToCard = true;
-        } else {
-            System.out.println("Failed To Add Element To The Card");
-            addedToCard = false;
-        }
-
+        addedToCard = !cardText.equalsIgnoreCase("Empty");
         Assert.assertTrue(addedToCard);
     }
 

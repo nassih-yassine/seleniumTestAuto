@@ -66,11 +66,6 @@ public class CheckoutPage extends BaseTools {
     public void checkIfStripePopUpExist() {
         String stripePopUpXPath = "//form[@class='checkoutView']";
         boolean isPopUpDisplayed = driver.switchTo().frame(stripePopUpIFrame).findElements(By.xpath(stripePopUpXPath)).size() > 0;
-        if (isPopUpDisplayed) {
-            System.out.println("Stripe Pop Up Is Displayed");
-        } else {
-            System.out.println("Stripe Pop Up Is Not Displayed");
-        }
         Assert.assertTrue(isPopUpDisplayed);
     }
 

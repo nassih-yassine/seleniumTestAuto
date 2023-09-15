@@ -1,11 +1,13 @@
-package Pages;
+package Cucumber.Pages;
 
-import Utils.BaseTools;
+
+import Cucumber.Utils.BaseTools;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.Reporter;
 
 public class WeatherShopperHomePage extends BaseTools {
     WebDriver driver;
@@ -24,9 +26,7 @@ public class WeatherShopperHomePage extends BaseTools {
     }
 
     public int getTemperature(){
-        return Integer.getInteger(
-                temperature.getText().substring(0, temperature.getText().length()-2).trim()
-        );
+        return Integer.parseInt(temperature.getText().substring(0, temperature.getText().length()-2).trim());
     }
 
     public void clickMoisturizersButton(){
@@ -38,6 +38,7 @@ public class WeatherShopperHomePage extends BaseTools {
     }
 
     public void checkCurrentTemperaturePageTitle(){
+        waitForElementToBeVisible(driver, pageTitle);
         Assert.assertEquals(pageTitle.getText(), "Current temperature");
     }
 }
