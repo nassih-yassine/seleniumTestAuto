@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 public class DriverSetUp {
-    public static WebDriver driver;
+    private static WebDriver driver;
     public static int IMPLICIT_WAIT = 10;
     public static Properties properties;
 
